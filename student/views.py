@@ -9,37 +9,47 @@ from django.db import connection
 #     return render(request, 'index.html', {'posts': posts})
 
 
-def student_list_(request):
-    posts = Student.objects.filter(Q(classroom=4) & Q(first_name__startswith='Shikanda'))
+# def student_list_(request):
+#     posts = Student.objects.filter(Q(classroom=4) & Q(first_name__startswith='Shikanda'))
 
-    return render(request, 'index.html', {'posts': posts})
+#     return render(request, 'index.html', {'posts': posts})
 
 
-def student_list_(request):
-    posts = Student.objects.all().values("first_name").union(
-        Teacher.objects.all().values_list('first_name'))
-    print(posts)
-    print(posts.query)
-    print(connection.queries)
+# def student_list_(request):
+#     posts = Student.objects.all().values("first_name").union(
+#         Teacher.objects.all().values_list('first_name'))
+#     print(posts)
+#     print(posts.query)
+#     print(connection.queries)
 
-    return render(request, 'index.html', {'posts': posts})
+#     return render(request, 'index.html', {'posts': posts})
 
-def student_list_(request):
-    posts = Student.objects.exclude(age=23) & Student.objects.exclude(first_name__startswith='Thomas')
+# def student_list_(request):
+#     posts = Student.objects.exclude(age=23) & Student.objects.exclude(first_name__startswith='Thomas')
 
     
 
-    print(posts)
-    print(posts.query)
-    print(connection.queries)
+#     print(posts)
+#     print(posts.query)
+#     print(connection.queries)
 
-    return render(request, 'index.html', {'posts': posts})
+#     return render(request, 'index.html', {'posts': posts})
+
+
+# def student_list_(request):
+#     posts = Student.objects.filter(Q(age__gt=21) & Q(first_name__startswith='Thomas'))
+    
+
+#     print(posts)
+#     print(posts.query)
+#     print(connection.queries)
+
+#     return render(request, 'index.html', {'posts': posts})
 
 
 def student_list(request):
-    posts = Student.objects.filter(Q(age__gt=21) & Q(first_name__startswith='Thomas'))
+    posts = Student.objects.raw("SELECT * FROM student_student where age > 20 ")
     
-
     print(posts)
     print(posts.query)
     print(connection.queries)
