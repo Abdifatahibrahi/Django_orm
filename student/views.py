@@ -47,11 +47,22 @@ from django.db import connection
 #     return render(request, 'index.html', {'posts': posts})
 
 
-def student_list(request):
-    posts = Student.objects.raw("SELECT * FROM student_student where age > 20 ")
+# def student_list(request):
+#     posts = Student.objects.raw("SELECT * FROM student_student where age > 20 ")
     
-    print(posts)
-    print(posts.query)
-    print(connection.queries)
+#     print(posts)
+#     print(posts.query)
+#     print(connection.queries)
 
-    return render(request, 'index.html', {'posts': posts})
+#     return render(request, 'index.html', {'posts': posts})
+
+
+
+def student_list(request):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM student_student")
+    r = cursor.fetchone()
+
+    print(r)
+
+    return render(request, 'index.html', {'posts': r})
